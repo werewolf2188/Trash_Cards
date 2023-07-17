@@ -1,4 +1,4 @@
 {
 	"name": "GameAssembly",
-	"references": [ "Unity.TextMeshPro" ]
+	"references": [ "Unity.TextMeshPro", "LeanTween" ]
 }

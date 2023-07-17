@@ -8,6 +8,8 @@ public class UserPlayer : Player
     private bool mouseClicked = false;
     private bool dealerAsked = false;
     private bool sessionFinished = false;
+    // TODO: This will be deleted since the final assertion will be with money
+    private uint points = 0;
     [SerializeField]
     private UnityEngine.UI.Button button;
 
@@ -88,5 +90,21 @@ public class UserPlayer : Player
     {
         base.Restart();
         sessionFinished = false;
+    }
+
+    public override void Win()
+    {
+        points++;
+    }
+
+    public override void Lose()
+    {
+
+    }
+
+    // Test
+    public uint GetPoints()
+    {
+        return points;
     }
 }

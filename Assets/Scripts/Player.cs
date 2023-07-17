@@ -56,4 +56,7 @@ public abstract class Player : MonoBehaviour
     {
         CardSpaces.ForEach(e => e.Deselect());
     }
+
+    public abstract void Win();
+    public abstract void Lose();
 }
