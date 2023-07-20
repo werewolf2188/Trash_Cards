@@ -18,4 +18,11 @@ public static class ExtensionMethods
             list[n] = value;
         }
     }
+
+    public static T GetRandom<T>(this IList<T> list)
+    {
+        UnityEngine.Random.InitState((int)UnityEngine.Time.renderedFrameCount);
+        int index = UnityEngine.Random.Range(0, list.Count - 1);
+        return list[index];
+    }
 }

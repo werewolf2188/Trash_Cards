@@ -91,15 +91,20 @@ public class Dealer : MonoBehaviour
         if (player.CurrentMovement.IsHigherThan(npc.CurrentMovement))
         {
             resultText.text = "You win!!!";
+            npc.Lose();
+            player.Win();
         }
         else if (npc.CurrentMovement.IsHigherThan(player.CurrentMovement))
         {
             resultText.text = "You Lose...";
+            player.Lose();
+            npc.Win();
         }
         else
         {
             resultText.text = "Draw";
         }
+        npc.CompareWith(player);
     }
 
     private void Restart()
