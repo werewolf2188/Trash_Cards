@@ -44,6 +44,13 @@ public class NPCFace : MonoBehaviour, INPCReaction
     private static string RESOURCES_FOLDER = "Third_Party/Box Toon Characters Pack - Humans/Pngs/";
 
     private NPCPlayer.Characters character;
+    public NPCPlayer.Characters Character
+    {
+        get
+        {
+            return character;
+        }
+    }
     [SerializeField]
     private UnityEngine.UI.Image faceImage;
     private Dictionary<NPCPlayer.Emotions, List<LeanTweenInfo>> infosPerEmotions = new Dictionary<NPCPlayer.Emotions, List<LeanTweenInfo>>();

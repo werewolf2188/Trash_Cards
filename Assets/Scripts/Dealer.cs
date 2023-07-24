@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Dealer : MonoBehaviour
 {
@@ -13,18 +14,24 @@ public class Dealer : MonoBehaviour
 
     public static int NUMBER_OF_CARDS = 5;
 
-
     private const int minimumOfCardsAvailableForNextSession = 20;
+    private const float initialMoney = 500;
 
     private List<Card> cards;
 
     private UserPlayer player;
     private NPCPlayer npc;
 
+    private float moneyBet;
+
     [SerializeField]
     private TMPro.TextMeshProUGUI resultText;
     [SerializeField]
+    private TMPro.TextMeshProUGUI betIsText;
+    [SerializeField]
     private UnityEngine.UI.Button dealButton;
+    [SerializeField]
+    private MoneyBetAlert betMoney;
 
     private void Awake()
     {
@@ -42,14 +49,17 @@ public class Dealer : MonoBehaviour
 
         // Look for User Player
         player = GameObject.FindGameObjectWithTag(USER_TAG).GetComponent<UserPlayer>();
+        player.SetInitialMoneyAmount(initialMoney);
         // Look for NPC Player
         npc = GameObject.FindGameObjectWithTag(ENEMY_TAG).GetComponent<NPCPlayer>();
+        npc.SetInitialMoneyAmount(initialMoney);
 
         // Give cards
         DealCards(player, NUMBER_OF_CARDS);
         DealCards(npc, NUMBER_OF_CARDS);
 
         Restart();
+        betMoney.Open(initialMoney);
     }
 
     // Update is called once per frame
@@ -104,7 +114,22 @@ public class Dealer : MonoBehaviour
         {
             resultText.text = "Draw";
         }
+        betIsText.gameObject.SetActive(false);
+        moneyBet = 0;
         npc.CompareWith(player);
+        if (player.GetMoney() == 0 || npc.GetMoney() == 0)
+        {
+            StartCoroutine(GameOver());
+        }
+    }
+
+    private IEnumerator GameOver()
+    {
+        dealButton.gameObject.SetActive(false);
+        yield return new WaitForSeconds(10);
+        resultText.text = "Game Over!";
+        yield return new WaitForSeconds(10);
+        SceneManager.LoadScene((int)TrashCardsScenes.Menu);
     }
 
     private void Restart()
@@ -128,5 +153,29 @@ public class Dealer : MonoBehaviour
 
         DealCards(player, NUMBER_OF_CARDS);
         DealCards(npc, NUMBER_OF_CARDS);
+        betMoney.Open(Mathf.Min(player.GetMoney(), npc.GetMoney()));
+    }
+
+    public bool PlayersAreBetting
+    {
+        get
+        {
+            return betMoney.IsOpen;
+        }
+    }
+
+    public void SetBet(float money)
+    {
+        moneyBet = money;
+        betIsText.text = $"Bet is: ${moneyBet}";
+        betIsText.gameObject.SetActive(true);
+    }
+
+    public float Bet
+    {
+        get
+        {
+            return moneyBet;
+        }
     }
 }

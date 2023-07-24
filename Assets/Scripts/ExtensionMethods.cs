@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum TrashCardsScenes: int
+{
+    Menu, Main
+}
+
 public static class ExtensionMethods
 {
     private static System.Random rng = new System.Random();

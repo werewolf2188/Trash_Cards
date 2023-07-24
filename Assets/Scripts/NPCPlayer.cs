@@ -23,15 +23,9 @@ public class NPCPlayer : Player
     }
 
     private bool hideCards = true;
-    // TODO: This will be deleted since the final assertion will be with money
-    private uint points = 0;
-    // TODO: This will come from the user
+    private bool? won = null;
     [SerializeField]
-    private Characters character;
-    // TODO: This will be deleted since the final assertion will be with money
-    [SerializeField]
-    [Range(2, 5)]
-    private int differenceOfPoints; // Difference of points to allow different emotions
+    private TMPro.TextMeshProUGUI moneyAmountText;
 
     private NPCSpeech npcSpeech;
     private NPCFace npcFace;
@@ -45,8 +39,8 @@ public class NPCPlayer : Player
 
     void Start()
     {
-        npcSpeech.Initialize(character, Emotions.Generic);
-        npcFace.Initialize(character, Emotions.Generic);
+        npcSpeech.Initialize(NPCInfo.Default.GetFace(), Emotions.Generic);
+        npcFace.Initialize(NPCInfo.Default.GetFace(), Emotions.Generic);
     }
 
     // Update is called once per frame
@@ -106,37 +100,47 @@ public class NPCPlayer : Player
 
     public void CompareWith(UserPlayer player)
     {
-        // TODO: Change logic based on money, not points
-        if (points == player.GetPoints())
+        if (won == null)
         {
-            React(Emotions.Generic);
+            React(Emotions.ZZ);
         }
-        else if (points > player.GetPoints() && points <= (player.GetPoints() + differenceOfPoints))
-        {
-            React(Emotions.Smirk);
-        }
-        else if (points > (player.GetPoints() + differenceOfPoints))
-        {
+        bool _won = won ?? false;
+        if (_won && moneyAmount > player.GetMoney())
             React(Emotions.Smile);
-        }
-        else if (points < (player.GetPoints() - differenceOfPoints))
-        {
-            React(Emotions.Angry);
-        }
-        else if (points < (player.GetPoints()))
-        {
+        else if (_won && moneyAmount == player.GetMoney())
+            React(Emotions.Generic);
+        else if (_won && moneyAmount < player.GetMoney())
+            React(Emotions.Smirk);
+        else if (!_won && moneyAmount >= player.GetMoney())
             React(Emotions.Sad);
-        }
+        else if (!_won && moneyAmount < player.GetMoney())
+            React(Emotions.Angry);
 
+        won = null;
+    }
+
+    public override void SetInitialMoneyAmount(float money)
+    {
+        base.SetInitialMoneyAmount(money);
+        SetAmount();
     }
 
     public override void Win()
     {
-        points++;
+        moneyAmount += Dealer.MainDealer.Bet;
+        won = true;
+        SetAmount();
     }
 
     public override void Lose()
     {
+        moneyAmount -= Dealer.MainDealer.Bet;
+        won = false;
+        SetAmount();
+    }
 
+    private void SetAmount()
+    {
+        moneyAmountText.text = $"NPC: ${moneyAmount}";
     }
 }
