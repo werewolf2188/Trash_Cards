@@ -8,10 +8,10 @@ public class UserPlayer : Player
     private bool mouseClicked = false;
     private bool dealerAsked = false;
     private bool sessionFinished = false;
-    // TODO: This will be deleted since the final assertion will be with money
-    private uint points = 0;
     [SerializeField]
     private UnityEngine.UI.Button button;
+    [SerializeField]
+    private TMPro.TextMeshProUGUI moneyAmountText;
 
     void Awake()
     {
@@ -33,7 +33,7 @@ public class UserPlayer : Player
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && !Dealer.MainDealer.PlayersAreBetting)
         {
             mouseClicked = true;
         }
@@ -92,19 +92,26 @@ public class UserPlayer : Player
         sessionFinished = false;
     }
 
+    public override void SetInitialMoneyAmount(float money)
+    {
+        base.SetInitialMoneyAmount(money);
+        SetAmount();
+    }
+
     public override void Win()
     {
-        points++;
+        moneyAmount += Dealer.MainDealer.Bet;
+        SetAmount();
     }
 
     public override void Lose()
     {
-
+        moneyAmount -= Dealer.MainDealer.Bet;
+        SetAmount();
     }
 
-    // Test
-    public uint GetPoints()
+    private void SetAmount()
     {
-        return points;
+        moneyAmountText.text = $"User: ${moneyAmount}";
     }
 }

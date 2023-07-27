@@ -8,6 +8,8 @@ public abstract class Player : MonoBehaviour
     public List<CardSpace> CardSpaces { get; private set; }
     public PokerMovement CurrentMovement { get; protected set; }
 
+    protected float moneyAmount;
+
     protected void GetCards()
     {
         CardSpaces = GetComponentsInChildren<CardSpace>().ToList();
@@ -57,6 +59,16 @@ public abstract class Player : MonoBehaviour
         CardSpaces.ForEach(e => e.Deselect());
     }
 
+    public virtual void SetInitialMoneyAmount(float money)
+    {
+        this.moneyAmount = money;
+    }
+
     public abstract void Win();
     public abstract void Lose();
+
+    public float GetMoney()
+    {
+        return moneyAmount;
+    }
 }
