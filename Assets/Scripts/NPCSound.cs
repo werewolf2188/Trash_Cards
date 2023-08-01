@@ -33,6 +33,7 @@ public class NPCSound : MonoBehaviour
     public void Initialize(NPCPlayer.Characters character, NPCPlayer.Emotions initialEmotion)
     {
         this.character = character;
+        //audioSource.pitch = Mathf.Clamp(((int)character) / 3, 0.5f, 3);
         React(initialEmotion);
     }
 
