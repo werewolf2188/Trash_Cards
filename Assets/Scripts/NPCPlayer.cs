@@ -29,18 +29,23 @@ public class NPCPlayer : Player
 
     private NPCSpeech npcSpeech;
     private NPCFace npcFace;
+    private NPCSound nPCSound;
 
     void Awake()
     {
         npcSpeech = GetComponent<NPCSpeech>();
         npcFace = GetComponent<NPCFace>();
+        nPCSound = GetComponent<NPCSound>();
         GetCards();
     }
 
     void Start()
     {
-        npcSpeech.Initialize(NPCInfo.Default.GetFace(), Emotions.Generic);
-        npcFace.Initialize(NPCInfo.Default.GetFace(), Emotions.Generic);
+        NPCInfo info = NPCInfo.Default;
+        Characters character = info != null ? info.GetFace() : Characters.HeroBlonde;
+        npcSpeech.Initialize(character, Emotions.Generic);
+        npcFace.Initialize(character, Emotions.Generic);
+        nPCSound.Initialize(character, Emotions.Generic);
     }
 
     // Update is called once per frame
@@ -53,6 +58,7 @@ public class NPCPlayer : Player
     {
         npcSpeech.React(emotion);
         npcFace.React(emotion);
+        nPCSound.React(emotion);
     }
 
     public override void SetCards(IList<Card> cards)
@@ -143,4 +149,32 @@ public class NPCPlayer : Player
     {
         moneyAmountText.text = $"NPC: ${moneyAmount}";
     }
+
+    //private void OnGUI()
+    //{
+    //    if (GUI.Button(new Rect(100, 30, 50, 30), "Angry"))
+    //    {
+    //        React(Emotions.Angry);
+    //    }
+    //    if (GUI.Button(new Rect(160, 30, 50, 30), "Sad"))
+    //    {
+    //        React(Emotions.Sad);
+    //    }
+    //    if (GUI.Button(new Rect(220, 30, 60, 30), "Generic"))
+    //    {
+    //        React(Emotions.Generic);
+    //    }
+    //    if (GUI.Button(new Rect(290, 30, 50, 30), "Smirk"))
+    //    {
+    //        React(Emotions.Smirk);
+    //    }
+    //    if (GUI.Button(new Rect(350, 30, 50, 30), "Smile"))
+    //    {
+    //        React(Emotions.Smile);
+    //    }
+    //    if (GUI.Button(new Rect(410, 30, 50, 30), "ZZ"))
+    //    {
+    //        React(Emotions.ZZ);
+    //    }
+    //}
 }

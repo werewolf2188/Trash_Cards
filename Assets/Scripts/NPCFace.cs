@@ -79,6 +79,9 @@ public class NPCFace : MonoBehaviour, INPCReaction
             new LeanTweenInfo(new Vector2(0, 25f), 0.1f, LeanTweenType.easeInOutElastic, 5, true),
             new LeanTweenInfo(Color.yellow, 0.5f, LeanTweenType.easeInOutElastic, -1, true)
         });
+        infosPerEmotions.Add(NPCPlayer.Emotions.ZZ, new List<LeanTweenInfo>()
+        {
+        });
     }
 
     private string GetName(NPCPlayer.Characters character, NPCPlayer.Emotions initialEmotion)

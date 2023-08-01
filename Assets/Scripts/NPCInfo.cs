@@ -17,6 +17,11 @@ public class NPCInfo : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        if (_default != null)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
         DontDestroyOnLoad(this);
         _default = this;
     }

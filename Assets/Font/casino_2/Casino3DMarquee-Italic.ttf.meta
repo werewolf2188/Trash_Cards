@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 0c4d8f8d3de7d44c3aa9a4a78f35d074
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Casino 3D Marquee
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 9733e726560594adb82cbe09c66b2b66, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

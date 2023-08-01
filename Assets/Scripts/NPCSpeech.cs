@@ -20,27 +20,31 @@ public class NPCSpeech : MonoBehaviour, INPCReaction
         phrases = new Dictionary<NPCPlayer.Emotions, List<string>>();
         phrases.Add(NPCPlayer.Emotions.Angry, new List<string>()
         {
-            "Why you!!",
+            "Why you--!!",
             "I hate this game!",
             "$@%#@!^!@%",
             "Oh you know what! Go #!#$ yourself",
-            "Ok, enough is enough!"
+            "Ok, enough is enough!",
+            "This game is rigged!"
         });
         phrases.Add(NPCPlayer.Emotions.Generic, new List<string>()
         {
-            "Let's get this over with.",
-            "I'm bored",
+            "Do you even grift, bro?",
+            "Every day I'm hustlin'...",
             "Don't you have anything else to do?",
-            "Why me?!",
-            "You should consider something else to do."
+            "You can't win big if you're not willing to take some risks.",
+            "Let's play, I guess...",
+            "You come here often?"
         });
         phrases.Add(NPCPlayer.Emotions.Sad, new List<string>()
         {
             "This sucks!",
-            "Oh man, what am I going to do now?",
+            "What am I gonna tell my mom?",
             "My lunch money!",
-            "Why are you so mean?",
-            "I thought we were going to play nice."
+            "The universe is against me...",
+            "I thought we were going to play nice.",
+            "This just isn't my day."
+          
         });
         phrases.Add(NPCPlayer.Emotions.Smile, new List<string>()
         {
@@ -48,7 +52,8 @@ public class NPCSpeech : MonoBehaviour, INPCReaction
             "Nothing can stop me now!",
             "I'm the best!!!",
             "I'm sooo going to buy that TV now!",
-            "Nobody can stop me!"
+            "Howdya like them apples!",
+            "Here comes my winning streak!"
         });
         phrases.Add(NPCPlayer.Emotions.Smirk, new List<string>()
         {
@@ -56,7 +61,9 @@ public class NPCSpeech : MonoBehaviour, INPCReaction
             "All the way to the bank.",
             "Gotcha!",
             "Hehe... cool, cool...",
-            "It must be my day!"
+            "It must be my day!",
+            "One man's trash is another man's royal flush.",
+            "Well well... how the turntables."
         });
         phrases.Add(NPCPlayer.Emotions.ZZ, new List<string>()
         {
